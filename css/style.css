@@ -1,0 +1,701 @@
+/* ==========================================================================
+   ZALEZIGO · Portfolio de Noelia González
+   Paleta clara (papel + tinta) con un único acento: el verde jade de la
+   americana del teleñeco. Tipografía: Funnel Display (titulares, Google
+   Fonts) e Inter (texto, servida en local).
+   ========================================================================== */
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/inter.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+:root {
+    --papel: #fbfbf8;
+    --piedra: #f1f1ec;
+    --tinta: #0b0b0c;
+    --tinta-60: rgba(11, 11, 12, 0.6);
+    --tinta-40: rgba(11, 11, 12, 0.4);
+    --tinta-15: rgba(11, 11, 12, 0.15);
+    --tinta-08: rgba(11, 11, 12, 0.08);
+    --verde: #0f6b5c;
+    --verde-oscuro: #0a4f45;
+    --verde-claro: #d9ece6;
+    --oro: #bca47c;
+    --amarillo: #f5c54a;        /* el amarillo de los zapatos y botones del teleñeco */
+    --amarillo-claro: #fbe7a3;
+    --papel-60: rgba(251, 251, 248, 0.6);
+    --papel-40: rgba(251, 251, 248, 0.4);
+
+    --fuente-display: 'Funnel Display', 'Inter', system-ui, sans-serif;
+    --fuente-texto: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --fuente-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Courier New', monospace;
+
+    --margen: clamp(1.25rem, 4vw, 4rem);
+    --margen-izq: var(--margen);           /* en escritorio incluye el carril de Noelia */
+    --carril: clamp(250px, 23vw, 360px);   /* ancho de Noelia (fija abajo) */
+    --carril-hueco: 2.5rem;                /* aire entre Noelia y el contenido */
+    --columnas: 12;
+    --hueco: clamp(0.75rem, 1.4vw, 1.5rem);
+    --cabecera-alto: 76px;
+
+    --sombra-desplazada: 10px 10px 0 var(--verde);
+    --radio: 14px;
+    --transicion: 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+body {
+    font-family: var(--fuente-texto);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--tinta);
+    background: var(--papel);
+    overflow-x: hidden;
+}
+
+img, video { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+ul[aria-label], ol { list-style: none; }
+
+::selection { background: var(--verde); color: var(--papel); }
+
+.visually-hidden {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0);
+    white-space: nowrap; border: 0;
+}
+
+.saltar-contenido {
+    position: fixed; top: 12px; left: 12px; z-index: 2000;
+    padding: 10px 16px;
+    background: var(--tinta); color: var(--papel);
+    border-radius: 999px; text-decoration: none; font-weight: 600;
+    transform: translateY(-200%);
+    transition: transform var(--transicion);
+}
+.saltar-contenido:focus { transform: translateY(0); }
+
+:focus-visible { outline: 2px solid var(--verde); outline-offset: 4px; border-radius: 4px; }
+
+/* --------------------------------------------------------------------------
+   Rejilla de 12 columnas con líneas verticales sutiles (fondo)
+   -------------------------------------------------------------------------- */
+.rejilla-columnas {
+    display: grid;
+    grid-template-columns: repeat(var(--columnas), minmax(0, 1fr));
+    column-gap: var(--hueco);
+    padding-left: var(--margen-izq);
+    padding-right: var(--margen);
+    position: relative;
+}
+
+/* Las líneas van en un pseudo-elemento para no tocar el contenido. */
+.lineas-fondo {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image: repeating-linear-gradient(
+        to right,
+        var(--tinta-08) 0 1px,
+        transparent 1px calc((100% - 1px) / var(--columnas))
+    );
+    background-size: calc(100% - var(--margen-izq) - var(--margen) + var(--hueco) + 1px) 100%;
+    background-position: calc(var(--margen-izq) - var(--hueco) / 2) 0;
+    background-repeat: no-repeat;
+    mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+}
+
+main, footer, .cabecera { position: relative; z-index: 1; }
+
+/* --------------------------------------------------------------------------
+   Tipografía base
+   -------------------------------------------------------------------------- */
+h1, h2, h3, .hero-nombre, .bocadillo, .contacto-correo, .indice-nombre {
+    font-family: var(--fuente-display);
+}
+
+h2 {
+    font-size: clamp(2.5rem, 6.5vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    font-weight: 600;
+}
+
+h3 { font-weight: 600; letter-spacing: -0.02em; }
+
+.eyebrow {
+    font-family: var(--fuente-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    color: var(--verde);
+    margin-bottom: 1.25rem;
+}
+.eyebrow-claro { color: var(--amarillo); }
+
+.acento-suave { color: var(--verde); font-weight: 300; }
+.marca {
+    background: linear-gradient(transparent 52%, var(--amarillo) 52%, var(--amarillo) 88%, transparent 88%);
+    color: inherit; padding-inline: 0.04em;
+}
+.destacado { color: var(--verde); font-weight: 600; }
+
+/* --------------------------------------------------------------------------
+   Botones
+   -------------------------------------------------------------------------- */
+.boton {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    height: 2.75rem; padding-inline: 1.125rem;
+    border-radius: 999px;
+    font-size: 0.9375rem; font-weight: 500; letter-spacing: -0.01em;
+    text-decoration: none; white-space: nowrap;
+    border: 1px solid var(--tinta);
+    transition: transform var(--transicion), background var(--transicion), color var(--transicion), box-shadow var(--transicion);
+}
+.boton-tinta { background: var(--tinta); color: var(--papel); }
+.boton-tinta:hover { background: var(--amarillo); border-color: var(--amarillo); color: var(--tinta); transform: translateY(-2px); }
+.boton-linea { background: transparent; color: var(--tinta); }
+.boton-linea:hover { background: var(--tinta); color: var(--papel); transform: translateY(-2px); }
+
+/* --------------------------------------------------------------------------
+   Cabecera
+   -------------------------------------------------------------------------- */
+.cabecera {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: var(--cabecera-alto);
+    padding-inline: var(--margen);
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+    background: var(--papel-60);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--tinta-08);
+    transition: transform 320ms ease, background var(--transicion);
+}
+.cabecera.oculta { transform: translateY(-100%); }
+
+.logo { display: inline-flex; line-height: 0; }
+.logo-imagen { width: clamp(150px, 16vw, 216px); height: auto; }
+
+.menu { display: flex; gap: clamp(0.5rem, 2vw, 1.75rem); }
+.menu a {
+    position: relative;
+    padding: 0.5rem 0.25rem;
+    font-size: 0.9375rem; font-weight: 500; text-decoration: none;
+    color: var(--tinta-60);
+    transition: color var(--transicion);
+}
+.menu a::after {
+    content: ''; position: absolute; left: 0.25rem; right: 0.25rem; bottom: 0.2rem;
+    height: 3px; background: var(--amarillo);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform var(--transicion);
+}
+.menu a:hover, .menu a[aria-current="location"] { color: var(--tinta); }
+.menu a[aria-current="location"]::after { transform: scaleX(1); }
+
+.cabecera-acciones { display: flex; align-items: center; gap: 0.75rem; }
+
+.selector-idioma select {
+    appearance: none; -webkit-appearance: none;
+    height: 2.75rem; padding: 0 1rem;
+    border: 1px solid var(--tinta-15); border-radius: 999px;
+    background: transparent; color: var(--tinta);
+    font: inherit; font-size: 0.875rem; font-weight: 600; cursor: pointer;
+}
+.selector-idioma[hidden] { display: none; }
+
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+.hero {
+    min-height: 100svh;
+    padding-top: calc(var(--cabecera-alto) + 1.5rem);
+    padding-bottom: 2rem;
+    grid-template-rows: auto 1fr auto;
+    row-gap: 2rem;
+    align-items: end;
+}
+
+.hero-cabecera {
+    grid-column: 1 / -1;
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
+}
+.hero-nombre { display: flex; flex-direction: column; line-height: 1.1; letter-spacing: -0.02em; }
+.hero-nombre-fuerte { font-size: clamp(1.125rem, 2.2vw, 1.75rem); font-weight: 600; }
+.hero-nombre-suave { font-size: clamp(0.9375rem, 1.6vw, 1.25rem); font-weight: 300; color: var(--tinta-60); }
+.hero-ubicacion { font-family: var(--fuente-mono); font-size: 0.75rem; letter-spacing: 0.12em; color: var(--tinta-60); padding-top: 0.35rem; }
+
+.hero-titulo {
+    grid-column: 1 / -1;
+    align-self: end;
+    font-size: clamp(2.75rem, 6.6vw, 7rem);
+    line-height: 0.92;
+    letter-spacing: -0.045em;
+    font-weight: 700;
+}
+.hero-titulo-acento { font-weight: 300; color: var(--verde); }
+
+.hero-pie {
+    grid-column: 1 / -1;
+    display: flex; justify-content: flex-start; align-items: center; gap: 1rem 2.5rem; flex-wrap: wrap;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--tinta-15);
+}
+.hero-stack { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; font-family: var(--fuente-mono); font-size: 0.75rem; letter-spacing: 0.12em; color: var(--tinta-60); }
+.hero-stack li::before { content: '/ '; color: var(--verde); }
+.hero-bajar { text-decoration: none; font-weight: 500; font-size: 0.9375rem; }
+.hero-bajar span { display: inline-block; transition: transform var(--transicion); }
+.hero-bajar:hover span { transform: translateY(3px); }
+
+/* --------------------------------------------------------------------------
+   Teleñeco
+   Sprite de tres poses en celdas iguales de 512 × 1024 con fondo transparente.
+   El marco enseña solo la parte superior de la figura (de cintura para arriba);
+   el resto queda por debajo del borde de la ventana, como si asomara.
+   -------------------------------------------------------------------------- */
+.teleneco-marco {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1.18;
+    overflow: hidden;
+    transform: scaleX(-1); /* en espejo a la izquierda: saluda y señala hacia el contenido */
+    transition: transform 500ms ease;
+}
+.derecha .teleneco-marco { transform: scaleX(1); }
+.teleneco {
+    position: absolute; top: 0; left: 0;
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 2;
+    background-image: url('../img/noelia-teleneco-poses-v1.png');
+    background-repeat: no-repeat;
+    background-size: 300% auto;
+    background-position: 0% 0%;
+    transform-origin: 50% 100%;
+    filter: drop-shadow(0 8px 10px rgba(11, 11, 12, 0.16));
+}
+.teleneco[data-pose="0"] { background-position: 0% 0%; }
+.teleneco[data-pose="1"] { background-position: 50% 0%; }
+.teleneco[data-pose="2"] { background-position: 100% 0%; }
+
+/* Balanceo suave: respira y se inclina un poco, como una marioneta. */
+@keyframes flotar {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-1.5%) rotate(-1deg); }
+}
+.teleneco.flota { animation: flotar 4.2s ease-in-out infinite; }
+
+/* Saltito al cambiar de pose */
+@keyframes saltito {
+    0% { transform: translateY(0) scale(1); }
+    35% { transform: translateY(-3%) scale(1.03, 0.97); }
+    70% { transform: translateY(0) scale(0.99, 1.01); }
+    100% { transform: translateY(0) scale(1); }
+}
+.teleneco.animando { animation: saltito 520ms ease-out; }
+
+/* Bocadillo */
+.bocadillo {
+    position: relative;
+    background: var(--papel);
+    color: var(--tinta);
+    border: 1px solid var(--tinta);
+    border-radius: 18px;
+    padding: 0.9rem 1.1rem;
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    box-shadow: 5px 5px 0 var(--verde);
+}
+.bocadillo strong { color: var(--tinta); font-weight: 700; background: linear-gradient(transparent 52%, var(--amarillo) 52%, var(--amarillo) 88%, transparent 88%); }
+.bocadillo::before, .bocadillo::after {
+    content: ''; position: absolute;
+    border: 10px solid transparent;
+}
+
+/* --------------------------------------------------------------------------
+   Declaración breve
+   -------------------------------------------------------------------------- */
+/* La sección es alta y su interior se queda fijo: mientras bajas, las
+   palabras se "leen" de gris a negro (ver script.js). */
+.declaracion { background: var(--piedra); min-height: 180svh; }
+.declaracion-interior {
+    position: sticky; top: 0;
+    min-height: 100svh;
+    align-content: center;
+    padding-block: clamp(5rem, 12vh, 9rem);
+}
+.declaracion-texto {
+    grid-column: 1 / -1;
+    font-family: var(--fuente-display);
+    font-size: clamp(1.5rem, 3.1vw, 3.1rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+    max-width: 22ch;
+}
+@media (min-width: 900px) { .declaracion-texto { grid-column: 4 / -1; max-width: none; } }
+
+.palabra { color: var(--tinta-15); transition: color 260ms ease; }
+.palabra.leyendo { color: var(--tinta-60); background: var(--amarillo-claro); border-radius: 3px; }
+.palabra { transition: color 260ms ease, background-color 260ms ease; }
+.palabra.leida { color: var(--tinta); }
+.acento-suave .palabra.leyendo { color: rgba(15, 107, 92, 0.45); }
+.acento-suave .palabra.leida { color: var(--verde); }
+@media (prefers-reduced-motion: reduce) {
+    .declaracion { min-height: 0; }
+    .declaracion-interior { position: static; min-height: 0; }
+    .palabra { color: inherit; }
+}
+
+/* --------------------------------------------------------------------------
+   Secciones genéricas
+   -------------------------------------------------------------------------- */
+.seccion-titulo { padding-block: clamp(4rem, 10vh, 7rem) clamp(2rem, 5vh, 3.5rem); align-items: end; row-gap: 1rem; }
+.seccion-titulo > * { grid-column: 1 / -1; }
+.seccion-titulo h2 { grid-column: 1 / 9; }
+.seccion-intro { grid-column: 9 / -1; color: var(--tinta-60); font-size: 1rem; align-self: end; }
+
+/* --------------------------------------------------------------------------
+   Proyectos: una pantalla por proyecto
+   -------------------------------------------------------------------------- */
+.proyecto {
+    min-height: 100svh;
+    align-content: center;
+    row-gap: clamp(1.25rem, 3vh, 2rem);
+    padding-block: calc(var(--cabecera-alto) + 1rem) 3rem;
+    border-top: 1px solid var(--tinta-15);
+    scroll-margin-top: 0;
+}
+.proyecto-cabecera {
+    grid-column: 1 / -1;
+    display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1rem 2rem;
+}
+.proyecto h3 { font-size: clamp(2.25rem, 5.5vw, 5rem); line-height: 0.95; letter-spacing: -0.035em; }
+.proyecto-escena {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: min(100%, calc(62svh * 1.6), 1000px);
+}
+
+.navegador {
+    border: 1px solid var(--tinta-15);
+    border-radius: var(--radio);
+    background: var(--papel);
+    overflow: hidden;
+    box-shadow: 8px 8px 0 var(--verde);
+    transition: transform var(--transicion);
+}
+.proyecto:hover .navegador { transform: translate(-3px, -3px); }
+.navegador-barra {
+    position: relative;
+    display: flex; align-items: center; gap: 6px;
+    height: 36px; padding-inline: 12px;
+    border-bottom: 1px solid var(--tinta-08);
+}
+.navegador-barra > span:not(.navegador-url) { width: 10px; height: 10px; border-radius: 50%; background: var(--tinta-15); }
+.navegador-url {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    padding: 2px 12px; border-radius: 999px;
+    background: var(--tinta-08); color: var(--tinta-60);
+    font-size: 0.75rem; font-weight: 500;
+}
+.navegador-pantalla {
+    aspect-ratio: 16 / 10;
+    display: grid; place-items: center;
+    background: var(--piedra);
+    overflow: hidden;
+}
+.navegador-pantalla-clara { background: #fff; }
+.navegador-pantalla-oscura { background: var(--tinta); }
+.navegador-pantalla img { width: 100%; height: 100%; object-fit: contain; padding: 6%; }
+.navegador-pantalla .imagen-logo { width: 70%; height: auto; padding: 0; }
+.proyecto-video { width: 100%; height: 100%; object-fit: contain; background: var(--tinta); }
+
+.etiquetas { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.etiquetas li {
+    font-family: var(--fuente-mono); font-size: 0.72rem; letter-spacing: 0.06em;
+    padding: 0.3rem 0.65rem; border-radius: 999px;
+    background: var(--verde-claro); color: var(--verde-oscuro);
+}
+
+/* --------------------------------------------------------------------------
+   Página de un proyecto (proyectos/*.html). Noelia va a la derecha.
+   -------------------------------------------------------------------------- */
+.ficha-proyecto {
+    padding-top: calc(var(--cabecera-alto) + 2rem);
+    padding-bottom: clamp(4rem, 10vh, 7rem);
+    row-gap: 2rem;
+}
+.ficha-proyecto > * { grid-column: 1 / -1; }
+.ficha-proyecto-barra { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; }
+.ficha-proyecto h1 {
+    font-size: clamp(2.75rem, 7vw, 7rem);
+    line-height: 0.92; letter-spacing: -0.045em; font-weight: 600;
+}
+.ficha-proyecto-datos {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem 2rem;
+    padding-top: 1rem; border-top: 1px solid var(--tinta-15);
+}
+.ficha-proyecto-datos .ficha-item { border-top: 0; padding-top: 0; }
+.ficha-proyecto-datos .etiquetas { margin-top: 0.35rem; }
+.ficha-proyecto-media { max-width: 1000px; }
+.ficha-proyecto-texto { max-width: 62ch; }
+.ficha-proyecto-texto h2 { font-size: 1.5rem; margin: 2rem 0 0.75rem; letter-spacing: -0.02em; }
+.ficha-proyecto-texto h2:first-child { margin-top: 0; }
+.ficha-proyecto-texto p { color: var(--tinta); }
+.lista-puntos { list-style: none; display: grid; gap: 0.5rem; }
+.lista-puntos li { padding-left: 1.4rem; position: relative; }
+.lista-puntos li::before { content: '/'; position: absolute; left: 0; color: var(--verde); font-family: var(--fuente-mono); }
+.lista-enlaces { list-style: none; display: grid; gap: 0.4rem; }
+.lista-enlaces a { font-weight: 500; text-decoration-color: var(--tinta-40); text-underline-offset: 0.2em; }
+.lista-enlaces a:hover { color: var(--verde); text-decoration-color: var(--verde); }
+.ficha-proyecto-siguiente { border-top: 1px solid var(--tinta-15); padding-top: 1.5rem; }
+.ficha-proyecto-siguiente a { display: flex; flex-direction: column; gap: 0.25rem; text-decoration: none; width: fit-content; }
+.ficha-proyecto-siguiente span { font-family: var(--fuente-mono); font-size: 0.72rem; letter-spacing: 0.18em; color: var(--verde); }
+.ficha-proyecto-siguiente strong { font-family: var(--fuente-display); font-size: clamp(1.5rem, 3vw, 2.5rem); letter-spacing: -0.03em; transition: color var(--transicion); }
+.ficha-proyecto-siguiente a:hover strong { color: var(--verde); }
+
+/* Índice rápido */
+.indice { padding-block: clamp(3rem, 8vh, 5rem); border-top: 1px solid var(--tinta-15); row-gap: 1.5rem; }
+.indice-cabecera { grid-column: 1 / 4; display: flex; flex-direction: column; gap: 0.25rem; }
+.indice-cabecera h3 { font-size: 1.25rem; }
+.indice-cabecera p { color: var(--tinta-60); font-size: 0.9375rem; }
+.indice-lista { grid-column: 4 / -1; }
+.indice-lista li { border-bottom: 1px solid var(--tinta-15); }
+.indice-lista li:first-child { border-top: 1px solid var(--tinta-15); }
+.indice-lista a {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+    padding: 1rem 0.25rem;
+    text-decoration: none;
+    transition: padding-left var(--transicion), color var(--transicion);
+}
+.indice-lista a:hover { padding-left: 1rem; color: var(--verde); }
+.indice-nombre { font-size: clamp(1.25rem, 2vw, 1.75rem); font-weight: 600; letter-spacing: -0.02em; }
+.indice-tipo { color: var(--tinta-60); font-size: 0.875rem; text-align: right; }
+
+/* --------------------------------------------------------------------------
+   Sobre mí
+   -------------------------------------------------------------------------- */
+.sobre-mi { background: var(--piedra); }
+.sobre-mi .seccion-titulo h2 { grid-column: 1 / -1; }
+.sobre-mi-cuerpo { padding-bottom: clamp(4rem, 10vh, 7rem); row-gap: 2.5rem; align-items: start; }
+.sobre-mi-texto { grid-column: 1 / 10; }
+
+.ficha { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem 2rem; margin-top: 3rem; max-width: 62ch; }
+.ficha-item { border-top: 1px solid var(--tinta-15); padding-top: 0.75rem; }
+.ficha dt { font-family: var(--fuente-mono); font-size: 0.7rem; letter-spacing: 0.18em; color: var(--verde); margin-bottom: 0.25rem; }
+.ficha dd { font-weight: 500; }
+
+.sobre-mi-texto p { margin-bottom: 1.25rem; max-width: 62ch; color: var(--tinta); }
+.sobre-mi-texto p:first-child {
+    font-family: var(--fuente-display);
+    font-size: clamp(1.25rem, 2vw, 1.6rem); line-height: 1.25; letter-spacing: -0.02em; font-weight: 500;
+}
+.cita {
+    margin: 2rem 0;
+    padding: 1.25rem 1.5rem;
+    border-left: 4px solid var(--verde);
+    background: var(--papel);
+    border-radius: 0 var(--radio) var(--radio) 0;
+}
+.cita p {
+    margin: 0;
+    font-family: var(--fuente-display);
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem); line-height: 1.2; letter-spacing: -0.025em; font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Contacto (bloque tinta)
+   -------------------------------------------------------------------------- */
+.contacto {
+    background: var(--tinta); color: var(--papel);
+    padding-block: clamp(5rem, 14vh, 10rem) clamp(4rem, 10vh, 7rem);
+    row-gap: 3rem;
+    align-items: end;
+}
+.contacto-principal { grid-column: 1 / 9; }
+.contacto h2 { font-size: clamp(3rem, 8.5vw, 8.5rem); margin-bottom: 1rem; }
+.contacto-sub { color: var(--papel-60); font-size: clamp(1.1rem, 1.8vw, 1.5rem); margin-bottom: 2rem; max-width: 36ch; }
+
+.contacto-correo {
+    display: inline-flex; flex-direction: column; align-items: flex-start; gap: 0.25rem;
+    background: none; border: 0; cursor: pointer; padding: 0;
+    color: var(--papel);
+    font-size: clamp(1.25rem, 3.2vw, 2.75rem); font-weight: 500; letter-spacing: -0.03em; line-height: 1.1;
+    text-decoration: underline; text-decoration-color: var(--papel-40); text-underline-offset: 0.18em; text-decoration-thickness: 2px;
+    transition: text-decoration-color var(--transicion);
+    text-align: left;
+}
+.contacto-correo:hover { text-decoration-color: var(--amarillo); }
+.contacto-correo-pista { font-family: var(--fuente-mono); font-size: 0.7rem; letter-spacing: 0.18em; color: var(--amarillo); text-decoration: none; }
+.copiado-aviso { min-height: 1.5rem; margin-top: 0.75rem; font-weight: 600; color: var(--amarillo); }
+
+.contacto-enlaces { grid-column: 9 / -1; display: grid; gap: 0.25rem; }
+.contacto-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 1rem 0.25rem;
+    border-top: 1px solid rgba(251, 251, 248, 0.15);
+    text-decoration: none; font-weight: 500; font-size: 1.125rem;
+    transition: padding-left var(--transicion), color var(--transicion);
+}
+.contacto-item:last-child { border-bottom: 1px solid rgba(251, 251, 248, 0.15); }
+.contacto-item:hover { padding-left: 0.75rem; color: var(--amarillo); }
+.contacto-icono { width: 22px; height: 22px; display: inline-flex; }
+.contacto-icono svg { width: 100%; height: 100%; fill: currentColor; }
+.contacto-flecha { margin-left: auto; opacity: 0.5; }
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+.footer { background: var(--tinta); color: var(--papel); border-top: 1px solid rgba(251, 251, 248, 0.12); }
+.footer-contenido { padding-block: 3.5rem 2.5rem; row-gap: 2rem; }
+.footer-marca { grid-column: 1 / 7; }
+.footer-marca .logo-imagen { width: 190px; margin-bottom: 1rem; }
+.footer-marca p { color: var(--papel-60); max-width: 36ch; font-size: 0.9375rem; }
+.footer-columna { grid-column: span 3; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-columna h3 { font-family: var(--fuente-mono); font-size: 0.7rem; letter-spacing: 0.18em; color: var(--amarillo); margin-bottom: 0.5rem; font-weight: 500; }
+.footer-columna a { color: var(--papel-60); text-decoration: none; font-size: 0.9375rem; transition: color var(--transicion); }
+.footer-columna a:hover { color: var(--papel); }
+.footer-inferior {
+    padding-block: 1.25rem 1.5rem;
+    border-top: 1px solid rgba(251, 251, 248, 0.12);
+    font-size: 0.8125rem; color: var(--papel-40);
+}
+.footer-inferior p { grid-column: 1 / 9; }
+.footer-inferior a { grid-column: 9 / -1; text-align: right; text-decoration: none; color: var(--papel-60); }
+.footer-inferior a:hover { color: var(--papel); }
+
+/* --------------------------------------------------------------------------
+   Presentadora fija: Noelia asoma por el borde inferior izquierdo y se queda
+   ahí mientras bajas. En escritorio el contenido deja libre su carril.
+   -------------------------------------------------------------------------- */
+.presentadora {
+    position: fixed; left: var(--margen); bottom: 0; z-index: 90;
+    width: var(--carril);
+    pointer-events: none;
+    transition: opacity 320ms ease, transform 320ms ease, left 900ms cubic-bezier(0.45, 0, 0.2, 1);
+}
+.presentadora.derecha { left: calc(100% - var(--margen) - var(--carril)); }
+.presentadora.oculta { opacity: 0; transform: translateY(30%); }
+.presentadora[hidden] { display: none; }
+
+.presentadora-boton {
+    display: block; width: 100%;
+    background: none; border: 0; padding: 0; cursor: pointer;
+    pointer-events: auto;
+    transition: transform var(--transicion);
+}
+.presentadora-boton:hover { transform: translateY(-4px); }
+
+.bocadillo-presentadora {
+    position: absolute; left: 0; bottom: calc(100% + 0.9rem);
+    width: max-content;
+    max-width: min(calc(var(--carril) + var(--carril-hueco)), 70vw); /* nunca invade el contenido */
+    font-size: clamp(1.0625rem, 1.25vw, 1.25rem);
+    line-height: 1.3;
+    padding: 1rem 1.25rem;
+    pointer-events: auto;
+    transition: opacity 240ms ease, transform 240ms ease;
+}
+.bocadillo-presentadora.cambiando { opacity: 0; transform: translateY(6px); }
+.bocadillo-presentadora::before { bottom: -21px; left: 34%; border-top-color: var(--tinta); }
+.bocadillo-presentadora::after { bottom: -18px; left: 34%; border-top-color: var(--papel); }
+.derecha .bocadillo-presentadora { left: auto; right: 0; }
+.derecha .bocadillo-presentadora::before, .derecha .bocadillo-presentadora::after { left: auto; right: 34%; }
+.presentadora-linea { margin: 0; padding-right: 0.5rem; }
+
+.presentadora-cerrar {
+    position: absolute; top: -11px; right: -11px;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 1px solid var(--tinta);
+    background: var(--papel); color: var(--tinta);
+    cursor: pointer; line-height: 1; font-size: 0.9rem;
+    transition: background var(--transicion), color var(--transicion);
+}
+.presentadora-cerrar:hover { background: var(--amarillo); border-color: var(--amarillo); }
+
+/* --------------------------------------------------------------------------
+   Aparición suave al hacer scroll
+   -------------------------------------------------------------------------- */
+.aparece { opacity: 0; transform: translateY(18px); }
+.aparece.visible { opacity: 1; transform: none; transition: opacity 600ms ease, transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (min-width: 1051px) {
+    :root { --margen-izq: calc(var(--margen) + var(--carril) + var(--carril-hueco)); }
+    .hero-cabecera { grid-column: 1 / -1; }
+    /* En el hero y en las páginas de proyecto Noelia está a la derecha: el hueco libre cambia de lado */
+    .hero.rejilla-columnas, .pagina-proyecto .rejilla-columnas { padding-left: var(--margen); padding-right: calc(var(--margen) + var(--carril) + var(--carril-hueco)); }
+}
+
+@media (max-width: 1050px) {
+    .hero-titulo { grid-column: 1 / -1; }
+    .seccion-titulo h2, .seccion-intro { grid-column: 1 / -1; }
+    .indice-cabecera, .indice-lista { grid-column: 1 / -1; }
+    .sobre-mi-texto { grid-column: 1 / -1; }
+    .contacto-principal, .contacto-enlaces { grid-column: 1 / -1; }
+    .footer-marca { grid-column: 1 / -1; }
+    .footer-columna { grid-column: span 6; }
+}
+
+@media (max-width: 760px) {
+    :root { --cabecera-alto: 64px; --columnas: 4; }
+    .menu { display: none; }
+    .logo-imagen { width: 140px; }
+    .cabecera .boton { height: 2.4rem; padding-inline: 0.9rem; font-size: 0.875rem; }
+    .hero { row-gap: 1.5rem; padding-bottom: 12rem; }
+    .hero-ubicacion { display: none; }
+    .footer-columna { grid-column: 1 / -1; }
+    .footer-inferior p, .footer-inferior a { grid-column: 1 / -1; text-align: left; }
+    :root { --carril: 96px; }
+    .presentadora, .presentadora.derecha { left: 0.5rem; }
+    .derecha .teleneco-marco { transform: scaleX(-1); }
+    .derecha .bocadillo-presentadora { left: 0; right: auto; }
+    .derecha .bocadillo-presentadora::before, .derecha .bocadillo-presentadora::after { right: auto; }
+    /* En móvil el bocadillo queda sobre su cabeza, por encima de la barra de menú */
+    .bocadillo-presentadora {
+        bottom: calc(100% + 0.6rem);
+        max-width: calc(100vw - 2rem);
+        font-size: 1rem; padding: 0.75rem 1rem;
+    }
+    .bocadillo-presentadora::before, .bocadillo-presentadora::after, .derecha .bocadillo-presentadora::before, .derecha .bocadillo-presentadora::after { left: 28px; }
+}
+
+/* Menú en móvil: lo mostramos como barra inferior sencilla */
+@media (max-width: 760px) {
+    .menu-movil {
+        position: fixed; right: 0.75rem; bottom: 0.75rem; z-index: 95;
+        display: flex; gap: 0.25rem;
+        padding: 0.3rem;
+        background: var(--tinta); color: var(--papel);
+        border-radius: 999px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+    .menu-movil a { white-space: nowrap; padding: 0.5rem 0.75rem; border-radius: 999px; font-size: 0.8125rem; font-weight: 500; text-decoration: none; color: var(--papel-60); }
+    .menu-movil a[aria-current="location"] { background: var(--amarillo); color: var(--tinta); }
+}
+@media (min-width: 761px) { .menu-movil { display: none; } }
+
+/* --------------------------------------------------------------------------
+   Movimiento reducido
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+    .aparece { opacity: 1; transform: none; }
+    .teleneco.animando, .teleneco.flota { animation: none; }
+}

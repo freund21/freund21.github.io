@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="432" height="52" viewBox="0 0 432 52" fill="none">
+  <title>ZALEZIGO · Desarrollo web</title>
+  <g stroke="#0f6b5c" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M13 15 3 23l10 8M62 15l10 8-10 8M96 3v42"/>
+  </g>
+  <path d="M46 4 25 43" stroke="#0b0b0c" stroke-width="2.4"/>
+  <g stroke="#0b0b0c" stroke-width="1.8" stroke-linejoin="miter">
+    <path d="M118 4h17l-17 22h17M160 26l10-22 10 22M207 4v22h17M247 4h18m-18 11h15m-15 11h18M289 4h18l-18 22h18M336 4v22M387 7a11 11 0 1 0 0 16v-8h-9"/>
+    <ellipse cx="420" cy="15" rx="10" ry="11"/>
+  </g>
+  <text x="276" y="47" text-anchor="middle" fill="#0f6b5c" font-family="Arial, Helvetica, sans-serif" font-size="8" letter-spacing="5">DESARROLLO WEB</text>
+</svg>
