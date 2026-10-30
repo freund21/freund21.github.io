@@ -601,8 +601,9 @@ h3 { font-weight: 600; letter-spacing: -0.02em; }
 .bocadillo-presentadora {
     position: absolute; left: 0; bottom: calc(100% + 0.9rem);
     width: max-content;
-    max-width: min(calc(var(--carril) + var(--carril-hueco)), 70vw); /* nunca invade el contenido */
-    font-size: clamp(1.0625rem, 1.25vw, 1.25rem);
+    /* nunca sale de su carril: se resta el sitio de la sombra y del botón de cerrar */
+    max-width: min(calc(var(--carril) - 1rem), 70vw);
+    font-size: clamp(1rem, 1.1vw, 1.125rem);
     line-height: 1.3;
     padding: 1rem 1.25rem;
     pointer-events: auto;
