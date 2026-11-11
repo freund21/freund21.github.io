@@ -10,7 +10,8 @@
         // Hero
         'Desarrolladora web · ZALEZIGO': 'Web developer · ZALEZIGO',
         'Peñíscola, Castellón': 'Peñíscola, Castellón (Spain)',
-        'Empecé de cero a los': 'I started from scratch at',
+        'Código pensado para': 'Code designed for',
+        'personas.': 'people.',
         'Hago webs que funcionan.': 'I build websites that work.',
         '¡Hola! Soy': "Hi! I'm",
         '. Baja un poco y te enseño lo que he creado.': ". Scroll down and I'll show you what I've built.",
