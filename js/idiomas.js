@@ -16,6 +16,7 @@
         'Hago webs que funcionan.': 'I build websites that work.',
         '¡Hola! Soy': "Hi! I'm",
         '. Baja un poco y te enseño lo que he creado.': ". Scroll down and I'll show you what I've built.",
+        '¡Hola! Soy Noelia. Baja un poco y te enseño lo que he creado.': "Hi! I'm Noelia. Scroll down and I'll show you what I've built.",
         'Noelia, el teleñeco que presenta este portfolio, saludando': 'Noelia, the puppet who presents this portfolio, waving',
         'Tecnologías principales': 'Main technologies',
         'Ver proyectos': 'See projects',

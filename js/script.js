@@ -171,6 +171,14 @@
 
     let lineaActual = lineaHero[0];
     let temporizadorCambio;
+
+    // Escribe la línea en el idioma activo; en el saludo mantiene «Noelia» en negrita.
+    function pintar(texto) {
+        linea.textContent = t(texto);
+        if (texto === lineaHero[0]) {
+            linea.innerHTML = linea.textContent.replace('Noelia', '<strong>Noelia</strong>');
+        }
+    }
     function decir(texto, pose) {
         if (texto === lineaActual) {
             if (typeof pose === 'number') ponerPose(pose);
@@ -179,7 +187,7 @@
         lineaActual = texto;
         clearTimeout(temporizadorCambio);
         const aplicar = () => {
-            linea.textContent = t(texto);
+            pintar(texto);
             bocadillo.classList.remove('cambiando');
             if (typeof pose === 'number') ponerPose(pose);
         };
@@ -292,7 +300,7 @@
     }
 
     /* Si cambia el idioma, repetimos la línea actual traducida. */
-    document.addEventListener('portfolio:language', () => {
-        linea.textContent = t(lineaActual);
-    });
+    document.addEventListener('portfolio:language', () => pintar(lineaActual));
+    // idiomas.js aplica el idioma guardado antes de que exista este listener: traducimos la línea inicial.
+    pintar(lineaActual);
 })();
